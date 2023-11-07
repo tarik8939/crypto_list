@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,11 +14,29 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        scaffoldBackgroundColor: Colors.grey,
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          appBarTheme: const AppBarTheme(
+              backgroundColor: Color.fromARGB(255, 31, 8, 58),
+              titleTextStyle: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 20,
+              )),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 31, 8, 58),
+          //TODO: divider color not applayed
+          dividerColor: Colors.red,
+          listTileTheme: const ListTileThemeData(iconColor: Colors.white),
+          useMaterial3: true,
+          textTheme: TextTheme(
+              bodyMedium: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18),
+              labelSmall: TextStyle(
+                  color: Colors.white.withOpacity(0.6),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14))),
+      home: const MyHomePage(title: 'Crypto currency app'),
     );
   }
 }
@@ -42,31 +61,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // backgroundColor: theme.colorScheme.inversePrimary,
         title: Text(widget.title),
+        centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+      body: ListView.separated(
+        itemCount: 10,
+        separatorBuilder: (context, index) => const Divider(),
+        itemBuilder: (context, i) => ListTile(
+          leading: SvgPicture.asset(
+            'assets/svg/Bitcoin.svg',
+            height: 30,
+            width: 30,
+          ),
+          title: Text("BTC", style: theme.textTheme.bodyMedium),
+          subtitle: Text("2000\$", style: theme.textTheme.labelSmall),
+          trailing: const Icon(Icons.arrow_forward_ios),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }
