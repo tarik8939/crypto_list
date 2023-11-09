@@ -25,7 +25,7 @@ class CryptoCoinsRepository extends AbstractCoinsRepository {
       return CryptoCoin(
           name: e.key,
           priceInUSD: price,
-          imageUrl: 'https://www.cryptocompare.com/${imageUrl}');
+          imageUrl: 'https://www.cryptocompare.com/$imageUrl');
     }).toList();
 
     return cryptoCoinsList;
